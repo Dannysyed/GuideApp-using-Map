@@ -1,18 +1,22 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Map from "./components/Map";
+import getCoordinates from "./components/Location";
 const App = () => {
-  let map = useRef(null);
+  let [direction, setDirection] = useState({ lat: 1, lon: 1 });
   useEffect(() => {
-    if (map.current) {
-      // Access the DOM element
-      map.current.style.color = "red";
-    }
+    let ass = async () => {
+      let ad = await getCoordinates("Waterloo canada");
+      // console.log(ad);
+      setDirection(ad);
+      // setDirection({ lat: -80.53733, lon: 43.468 });
+    };
+    ass();
   }, []);
-
+  console.log(direction.lat, direction.lon);
   return (
     <div>
-      <h1 ref={map}>Mapbox in React</h1>
-      <Map />
+      <h1>Mapbox in React</h1>
+      <Map direction={direction} />
     </div>
   );
 };

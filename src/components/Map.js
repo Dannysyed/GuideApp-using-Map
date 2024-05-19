@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-const Map = () => {
+const Map = ({ direction }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   mapboxgl.accessToken =
@@ -20,11 +20,11 @@ const Map = () => {
   ];
 
   useEffect(() => {
-    if (map.current) return; // Initialize map only once
+    // if (map.current) return; // Initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11", // Style URL
-      center: [-80.51667, 43.466667], // Initial center [lng, lat]
+      center: [direction.lat, direction.lon], // Initial center [lng, lat]
       zoom: 9, // Initial zoom level
     });
 
