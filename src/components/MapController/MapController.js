@@ -1,19 +1,45 @@
 import React, { useEffect, useState } from "react";
-import SearchInput from "./SearchInput";
-import { useDispatch } from "react-redux";
-import { setSearchValue } from "../../store/counterSlice";
+import Map from "./Map";
+import getCoordinates from "./Location";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCount } from "../../store/counterSlice";
 
 const MapController = () => {
-  const dispatch = useDispatch();
-  const handleSearch = (query) => {
-    console.log("Searching for:", query);
-    dispatch(setSearchValue(query)); // Dispatching the action creator with the query as payload
+  const count = useSelector(selectCount);
+
+  // let [search, setSearch] = useState("Waterloo");
+
+  let [currentLocation, setCurrenLocation] = useState({ lat: 1, lon: 1 });
+  let [direction, setDirection] = useState(currentLocation);
+
+  useEffect(() => {
+    const fetchCoordinates = async () => {
+      const { lat, lon } = await getCoordinates(count);
+      console.log(lat, lon);
+      setDirection({ lat, lon });
+    };
+    fetchCoordinates();
+    fetchCurrentLocation();
+  }, [count]);
+
+  console.log(direction.lat, direction.lon);
+
+  const fetchCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        console.log(latitude, longitude);
+        // return { lat: latitude, lon: longitude };
+        setCurrenLocation({ lat: latitude, lon: longitude });
+      });
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
   };
 
   return (
-    <div className="flex flex-col w-[100%]  border-black basis-1/3 items-center rounded-lg shadow-xl p-4 gap-10">
-      <h1 className="text-3xl font-bold mb-4 z-50">Welcome to Map Guide</h1>
-      <SearchInput onSearch={handleSearch} />
+    <div className=" border-black basis-2/3 w-[100%] h-[100%]">
+      <Map direction={direction} />
     </div>
   );
 };
