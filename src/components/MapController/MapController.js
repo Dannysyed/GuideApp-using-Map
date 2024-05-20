@@ -38,7 +38,7 @@ const MapController = () => {
   };
 
   return (
-    <div className=" border-black basis-2/3 w-[100%] h-[100%]">
+    <div className=" border-black w-[100%] h-[100%]">
       <Map direction={direction} />
     </div>
   );
