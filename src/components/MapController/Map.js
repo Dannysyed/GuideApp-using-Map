@@ -47,7 +47,7 @@ const Map = ({ direction }) => {
     });
   }, [direction.lat, direction.lon, pointsOfInterest]);
 
-  return <div ref={mapContainer} style={{ width: "50%", height: "500px" }} />;
+  return <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />;
 };
 
 export default Map;

@@ -39,7 +39,7 @@ const MapController = () => {
     }
   };
   return (
-    <div>
+    <div className="flex flex-col w-[100%] border border-black basis-1/2 items-center rounded-lg shadow-xl p-4 gap-10">
       <h1 className="text-3xl font-bold mb-4">Welcome to Map Guide</h1>
       <SearchInput onSearch={handleSearch} />
       <Map direction={direction} />
