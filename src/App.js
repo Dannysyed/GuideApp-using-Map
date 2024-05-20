@@ -7,7 +7,7 @@ import GuideController from "./components/GuideController/GuideController";
 
 const App = () => {
   return (
-    <div className=" bg-gray-100 flex flex-row p-2 border border-black gap-4 h-[100vh]">
+    <div className=" bg-gray-100 flex flex-row  border-black gap-4 h-[100vh]">
       <MapController />
       <GuideController />
     </div>

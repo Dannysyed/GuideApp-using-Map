@@ -14,7 +14,7 @@ function SearchInput({ onSearch }) {
   };
 
   return (
-    <div className="w-[21rem] max-w-sm  my-6">
+    <div className="w-[21rem] max-w-sm  my-6 z-5">
       <form onSubmit={handleSubmit} className="flex items-center">
         <input
           type="text"
