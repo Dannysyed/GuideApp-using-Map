@@ -1,22 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import Map from "./components/Map";
-import getCoordinates from "./components/Location";
+import React, { useEffect, useState } from "react";
+import Map from "./components/MapController/Map";
+import getCoordinates from "./components/MapController/Location";
+import SearchInput from "./components/MapController/SearchInput";
+import MapController from "./components/MapController/MapController";
+import GuideController from "./components/GuideController/GuideController";
+
 const App = () => {
-  let [direction, setDirection] = useState({ lat: 1, lon: 1 });
-  useEffect(() => {
-    let ass = async () => {
-      let ad = await getCoordinates("Waterloo canada");
-      // console.log(ad);
-      setDirection(ad);
-      // setDirection({ lat: -80.53733, lon: 43.468 });
-    };
-    ass();
-  }, []);
-  console.log(direction.lat, direction.lon);
   return (
-    <div>
-      <h1>Mapbox in React</h1>
-      <Map direction={direction} />
+    <div className=" bg-gray-100 flex flex-col items-start p-4 border border-black ">
+      <MapController />
+      <GuideController />
     </div>
   );
 };

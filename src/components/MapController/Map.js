@@ -1,13 +1,13 @@
-// src/Map.js
 import React, { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiZGFuaWVsc3llZDIwIiwiYSI6ImNsd2NxMjJmYTA1NncyamxlcmhjNnpqZWIifQ.znFfrrla2t7suhHOwCfyuQ";
+
 const Map = ({ direction }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoiZGFuaWVsc3llZDIwIiwiYSI6ImNsd2NxMjJmYTA1NncyamxlcmhjNnpqZWIifQ.znFfrrla2t7suhHOwCfyuQ";
 
   const pointsOfInterest = [
     {
@@ -20,20 +20,20 @@ const Map = ({ direction }) => {
   ];
 
   useEffect(() => {
-    // if (map.current) return; // Initialize map only once
+    // setting up the whole map
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11", // Style URL
-      center: [direction.lat, direction.lon], // Initial center [lng, lat]
-      zoom: 9, // Initial zoom level
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [direction.lon, direction.lat],
+      zoom: 9,
     });
 
-    // pointsOfInterest.forEach((poi) => {
-    //   new mapboxgl.Marker() // Initialize and add each marker
-    //     .setLngLat(poi.coordinates)
-    //     .setPopup(new mapboxgl.Popup().setText(poi.name)) // Add popups
-    //     .addTo(map.current);
-    // });
+    //  setting up the marker for current location
+    new mapboxgl.Marker()
+      .setLngLat([direction.lon, direction.lat])
+      .addTo(map.current);
+
+    //   setting up the marker for all guided list (point of intereset)
     pointsOfInterest.forEach((poi) => {
       const popup = new mapboxgl.Popup().setHTML(`
           <h3>${poi.name}</h3>
@@ -42,11 +42,12 @@ const Map = ({ direction }) => {
         `);
       new mapboxgl.Marker()
         .setLngLat(poi.coordinates)
-        .setPopup(popup) // Add custom popups
+        .setPopup(popup)
         .addTo(map.current);
     });
-  });
-  return <div ref={mapContainer} style={{ width: "100%", height: "500px" }} />;
+  }, [direction.lat, direction.lon, pointsOfInterest]);
+
+  return <div ref={mapContainer} style={{ width: "50%", height: "500px" }} />;
 };
 
 export default Map;
