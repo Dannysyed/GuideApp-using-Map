@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Map from "./Map";
 import getCoordinates from "./Location";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectCount } from "../../store/counterSlice";
 
 const MapController = () => {
