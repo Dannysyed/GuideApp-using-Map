@@ -9,17 +9,16 @@ const Map = ({ direction }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
 
-  const pointsOfInterest = [
-    {
-      id: 1,
-      name: "University of Waterloo",
-      coordinates: [-80.53733, 43.468],
-    },
-    { id: 2, name: "Statue of Liberty", coordinates: [-74.0445, 40.6892] },
-    { id: 3, name: "Times Square", coordinates: [-73.9851, 40.758] },
-  ];
-
   useEffect(() => {
+    const pointsOfInterest = [
+      {
+        id: 1,
+        name: "University of Waterloo",
+        coordinates: [-80.53733, 43.468],
+      },
+      { id: 2, name: "Statue of Liberty", coordinates: [-74.0445, 40.6892] },
+      { id: 3, name: "Times Square", coordinates: [-73.9851, 40.758] },
+    ];
     // setting up the whole map
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -45,7 +44,7 @@ const Map = ({ direction }) => {
         .setPopup(popup)
         .addTo(map.current);
     });
-  }, [direction.lat, direction.lon, pointsOfInterest]);
+  }, [direction.lat, direction.lon]);
 
   return <div ref={mapContainer} className="w-[100%] h-[100vh]" />;
 };
